@@ -36,25 +36,26 @@ def callback():
 @line_handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     global working_status
+    
     if event.message.type != "text":
         return
-
-    if event.message.text == "說話":
+    
+    if event.message.text == "啟動":
         working_status = True
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="我可以說話囉，歡迎來跟我互動 ^_^ "))
+            TextSendMessage(text="我是時下流行的AI智能，目前可以為您服務囉，歡迎來跟我互動~"))
         return
 
-    if event.message.text == "閉嘴":
+    if event.message.text == "安靜":
         working_status = False
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="好的，我乖乖閉嘴 > <，如果想要我繼續說話，請跟我說 「說話」 > <"))
+            TextSendMessage(text="感謝您的使用，若需要我的服務，請跟我說 「啟動」 謝謝~"))
         return
-
+    
     if working_status:
-        chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")
+        chatgpt.add_msg(f"Human:{event.message.text}?\n")
         reply_msg = chatgpt.get_response().replace("AI:", "", 1)
         chatgpt.add_msg(f"AI:{reply_msg}\n")
         line_bot_api.reply_message(
