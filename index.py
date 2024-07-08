@@ -6,7 +6,7 @@ from src.chatgpt import ChatGPT
 
 import os
 
-line_bot_api = LineBotApi(os.getenv("zSsCMZDdFlxMi1TP9SpH9vgiFCACqfU44DsFq7FUxXOZxY+dPdvflypL97aPDA7rYZ1fZB3sGIdH8Gg2WTUuEuYRbw9mS2NOoZieKBJvIbP6iJXle2ME79zflxOdYGoH5ZcN+hpxOJvUvMGVkyNvBQdB04t89/1O/w1cDnyilFU="))
+line_bot_api = LineBotApi(os.getenv("4lNwqrWgkV1qsiH0SjKKl3VePxeGi/nf/ztjQOnBHyWZiblpK9ErXUOGKaU/r82xYZ1fZB3sGIdH8Gg2WTUuEuYRbw9mS2NOoZieKBJvIbOxAQeX8IqMk2M1qBiw6bTV2FFgS1HcFCUuRRaWk3NXlgdB04t89/1O/w1cDnyilFU="))
 line_handler = WebhookHandler(os.getenv("04659b88b177622e23f977a8f81d5a20"))
 working_status = os.getenv("DEFALUT_TALKING", default = "true").lower() == "true"
 
