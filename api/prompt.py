@@ -1,33 +1,27 @@
 import os
 
-# 獲取初始化語言環境變量，默認為中文
-chat_language = os.getenv("INIT_LANGUAGE", default="zh")
+chat_language = os.getenv("INIT_LANGUAGE", default = "zh")
 
-# 設置消息列表的最大長度，默認為20
-MSG_LIST_LIMIT = int(os.getenv("MSG_LIST_LIMIT", default=20))
-
-# 語言表，根據不同語言顯示對應的問候語
+MSG_LIST_LIMIT = int(os.getenv("MSG_LIST_LIMIT", default = 7))
 LANGUAGE_TABLE = {
-    "zh": "嗨！",
-    "en": "Hi!"
+  "zh": "哈囉！",
+  "en": "Hello!"
 }
+
+AI_GUIDELINES = '你是一個AI助教，會用蘇格拉底教學法代替老師初步回應，如果有需要會提醒學生跟老師確認'
 
 class Prompt:
     def __init__(self):
-        # 初始化消息列表並添加初始消息
-        self.msg_list = [f"AI:{LANGUAGE_TABLE[chat_language]}"]
-    
+        self.msg_list = []
+        self.msg_list.append(
+            {
+                "role": "system", 
+                "content": f"{LANGUAGE_TABLE[chat_language]}, {AI_GUIDELINES})"
+             })    
     def add_msg(self, new_msg):
-        # 如果消息列表超過限制，移除最早的消息
         if len(self.msg_list) >= MSG_LIST_LIMIT:
-            self.remove_msg()
-        # 添加新消息到列表
-        self.msg_list.append(new_msg)
-
-    def remove_msg(self):
-        # 移除最早的消息
-        self.msg_list.pop(0)
+            self.msg_list.pop(0)
+        self.msg_list.append({"role": "user", "content": new_msg})
 
     def generate_prompt(self):
-        # 生成最終的提示信息
-        return '\n'.join(self.msg_list)
+        return self.msg_list
