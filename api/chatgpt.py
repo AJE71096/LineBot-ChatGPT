@@ -1,23 +1,25 @@
 import os
+from openai import OpenAI
+from api.prompt import Prompt
 
-chat_language = os.getenv("INIT_LANGUAGE", default="zh")
-MSG_LIST_LIMIT = int(os.getenv("MSG_LIST_LIMIT", default=20))
-LANGUAGE_TABLE = {
-    "zh": "嗨！",
-    "en": "Hi!"
-}
+client = OpenAI()
+client.api_key = os.getenv("OPENAI_API_KEY")
 
-class Prompt:
+class ChatGPT:
     def __init__(self):
-        self.msg_list = [{"role": "system", "content": LANGUAGE_TABLE[chat_language]}]
+        self.prompt = Prompt()
+        self.model = os.getenv("OPENAI_MODEL", default="gpt-4")
+        self.temperature = float(os.getenv("OPENAI_TEMPERATURE", default=0))
+        self.max_tokens = int(os.getenv("OPENAI_MAX_TOKENS", default=500))
 
-    def add_msg(self, role, new_msg):
-        if len(self.msg_list) >= MSG_LIST_LIMIT:
-            self.remove_msg()
-        self.msg_list.append({"role": role, "content": new_msg})
+    def get_response(self):
+        response = client.chat.completions.create(
+            model=self.model,
+            messages=self.prompt.generate_prompt(),
+            temperature=self.temperature,
+            max_tokens=self.max_tokens
+        )
+        return response.choices[0].message.content
 
-    def remove_msg(self):
-        self.msg_list.pop(0)
-
-    def generate_prompt(self):
-        return self.msg_list
+    def add_msg(self, role, text):
+        self.prompt.add_msg(role, text)
