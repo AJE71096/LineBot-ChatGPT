@@ -8,7 +8,7 @@ LANGUAGE_TABLE = {
   "en": "Hello!"
 }
 
-AI_GUIDELINES = '你是一個AI資訊助手，會簡單明瞭的提供用戶想要的資訊'
+AI_GUIDELINES = '你是一個AI資訊助手，會簡單明瞭的提供用戶想要的資訊，跟回答他們的問題'
 
 class Prompt:
     def __init__(self):
