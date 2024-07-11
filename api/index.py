@@ -38,7 +38,7 @@ def handle_message(event):
     global working_status
     if event.message.type != "text":
         return
-
+        
     #if event.message.text == "說話":
         #working_status = True
         #line_bot_api.reply_message(
@@ -53,14 +53,14 @@ def handle_message(event):
             #TextSendMessage(text="好的，我乖乖閉嘴，如果想要我繼續說話，請跟我說 「說話」"))
         #return
 
+    # 如果工作狀態為開啟，處理訊息並回應
     if working_status:
-        chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")
-        reply_msg = chatgpt.get_response().replace("AI:", "", 1)
-        chatgpt.add_msg(f"AI:{reply_msg}\n")
+        chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")  # 新增使用者訊息到 ChatGPT
+        reply_msg = chatgpt.get_response().replace("AI:", "", 1)  # 獲取 ChatGPT 回應並去除前綴
+        chatgpt.add_msg(f"AI:{reply_msg}\n")  # 新增 ChatGPT 回應到訊息歷史
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=reply_msg))
-
+            TextSendMessage(text=reply_msg))  # 回應使用者訊息
 
 if __name__ == "__main__":
     app.run()
