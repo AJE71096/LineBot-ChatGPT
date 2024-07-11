@@ -18,7 +18,7 @@ AI_GUIDELINES = '你是一個AI資訊助手，會簡單明瞭的提供用戶想�
 class Prompt:
     def __init__(self):
         self.msg_list = []
-        self.topic = None  # 追踪对话的主题
+        self.topic = None  # 追蹤對話主题
         # 初始化系統訊息
         self.msg_list.append(
             {
@@ -28,7 +28,7 @@ class Prompt:
         )
 
     def add_msg(self, new_msg, role="user"):
-        # 如果訊息列表已達到最大限制，刪除最早的一條訊息
+        # 如果訊息列表達到最大限制，刪除最早的一條訊息
         if len(self.msg_list) >= MSG_LIST_LIMIT:
             self.msg_list.pop(0)
         # 添加新的訊息
@@ -51,11 +51,5 @@ class Prompt:
     def answer_question(self, question):
         # 簡單的回覆邏輯，可以替換為更複雜的回覆生成
         if not self.topic:
-            self.topic = question  # 设置对话主题
+            self.topic = question  # 設定對話主题
         return f"這是關於 {self.topic} 的回答: {question} 的回覆內容"
-
-# 使用範例
-prompt = Prompt()
-print(prompt.ask("什麼是Kotlin？"))
-print(prompt.ask("它有什麼特點？"))
-print(prompt.ask("我如何開始學習Kotlin？"))
