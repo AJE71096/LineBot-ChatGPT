@@ -55,9 +55,9 @@ def handle_message(event):
 
     # 如果工作狀態為開啟，處理訊息並回應
     if working_status:
-        chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")  # 新增使用者訊息到 ChatGPT
-        reply_msg = chatgpt.get_response().replace("AI:", "", 1)  # 獲取 ChatGPT 回應並去除前綴
-        chatgpt.add_msg(f"AI:{reply_msg}\n")  # 新增 ChatGPT 回應到訊息歷史
+        chatgpt.add_msg(f"HUMAN:{event.message.text}?\n")  # 新增使用者訊息到ChatGPT
+        reply_msg = chatgpt.get_response().replace("AI:", "", 1)  # 獲取ChatGPT回應並去除前綴
+        chatgpt.add_msg(f"AI:{reply_msg}\n")  # 新增ChatGPT回應到訊息歷史
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=reply_msg))  # 回應使用者訊息
