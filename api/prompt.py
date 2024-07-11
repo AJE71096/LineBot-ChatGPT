@@ -12,7 +12,7 @@ LANGUAGE_TABLE = {
     "en": "Hello!"
 }
 
-# AI指導方針
+# AI屬性設定
 AI_GUIDELINES = '你是一個AI資訊助手，會簡單明瞭的提供用戶想要的資訊，跟回答他們的問題'
 
 class Prompt:
