@@ -1,12 +1,12 @@
 import os
 
-# 初始化語言，如果環境變數未設置，默認為中文
+# 初始化語言
 chat_language = os.getenv("INIT_LANGUAGE", default="zh")
 
-# 設置訊息列表的最大限制，如果環境變數未設置，默認為100
+# 設置訊息列表的最大限制
 MSG_LIST_LIMIT = int(os.getenv("MSG_LIST_LIMIT", default=100))
 
-# 語言表，用於不同語言的初始訊息
+# 語言表
 LANGUAGE_TABLE = {
     "zh": "哈囉！",
     "en": "Hello!"
@@ -19,7 +19,6 @@ class Prompt:
     def __init__(self):
         self.msg_list = []
         self.topic = None  # 追蹤對話主题
-        # 初始化系統訊息
         self.msg_list.append(
             {
                 "role": "system",
